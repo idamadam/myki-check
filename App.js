@@ -1,6 +1,3 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import Main from './src/main'
 
-import cardBalance from './src/myki/balance'
-
-export default cardBalance;
+export default Main;
