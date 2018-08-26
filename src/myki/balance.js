@@ -1,14 +1,6 @@
 import React, { Component } from 'react';
 import { FlatList, ActivityIndicator, Text, View  } from 'react-native';
 
-const username = 'idamadam';
-const password = 'NqDv7Umz;6xjMp';
-
-let auth = {
-	'username': username,
-	'password': password
-}
-
 const postData = (url = ``, data = {} ) => {
   return fetch(url, {
     method: "POST",
@@ -29,6 +21,11 @@ class cardBalance extends Component {
   }
 
   componentDidMount(){
+    let auth = {
+        'username': this.props.username,
+        'password': this.props.password
+    }
+
     postData(`http://localhost:3000/myki/balance`, auth)
     .then((responseJson) => {
       this.setState({
@@ -40,8 +37,6 @@ class cardBalance extends Component {
       console.error(error);
     });
   }
-
-
 
   render(){
 
