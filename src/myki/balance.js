@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { FlatList, ActivityIndicator, Text, View  } from 'react-native';
 
 const username = 'idamadam';
@@ -21,11 +21,11 @@ const postData = (url = ``, data = {} ) => {
   .catch(error => console.error(error))
 }
 
-export default class FetchExample extends React.Component {
+class cardBalance extends Component {
 
   constructor(props){
     super(props);
-    this.state ={ isLoading: true}
+    this.state = { isLoading: true }
   }
 
   componentDidMount(){
@@ -63,3 +63,5 @@ export default class FetchExample extends React.Component {
     );
   }
 }
+
+export default cardBalance;
