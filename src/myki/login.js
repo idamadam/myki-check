@@ -23,7 +23,14 @@ export default class LoginForm extends Component {
     }
 
     _onPress = () => {
-        this.props.handleLogin(this.state.email, this.state.password);
+        email = this.state.email;
+        password = this.state.password;
+
+        if (email.length == 0 || password.length == 0) {
+            Alert.alert('Please fill in form')
+        } else {
+            this.props.handleLogin(email, password);
+        }
     }
 
     render() {
