@@ -9,15 +9,8 @@ const postData = (url = ``, data = {} ) => {
     },
     body: JSON.stringify(data)
   })
-  .then((response) => {
-    if (response.status == 403) {
-      throw new Error('Incorrect login details')
-    } else {
-      return response.json()
-    }
-  })
+  .then((response) => response.json())
   .catch((error) => {
-    //Alert.alert(error);
     console.error(error);
   })
 }
@@ -36,11 +29,15 @@ class cardBalance extends Component {
     }
 
     postData(`https://asia-northeast1-myki-api.cloudfunctions.net/getBalance`, auth)
-    .then((responseJson) => {
-      this.setState({
-        isLoading: false,
-        balance: responseJson.balance
-      }, function(){});
+    .then((response) => {
+      if (response.error) {
+        Alert.alert(response.error, 'Please try again', [{text: 'Try again', onPress: () => this.props.loginFailed() }])
+      } else {
+        this.setState({
+          isLoading: false,
+          balance:response.balance
+        });
+      }
     })
     .catch((error) =>{
       console.error(error);

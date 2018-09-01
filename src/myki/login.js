@@ -27,9 +27,9 @@ export default class LoginForm extends Component {
         password = this.state.password;
 
         if (email.length == 0 || password.length == 0) {
-            Alert.alert('Please fill in form')
+            Alert.alert('Please fill in form');
         } else {
-            this.props.handleLogin(email, password);
+            this.props.submitForm(email, password);
         }
     }
 
@@ -41,11 +41,13 @@ export default class LoginForm extends Component {
                 <TextInput 
                     style={styles.textbox}
                     onChangeText={this._updateEmail}
+                    placeholder={this.state.email}
                 />
                 <Text style={styles.label}>Password</Text>
                 <TextInput 
                     style={styles.textbox} 
                     onChangeText={this._updatePassword}
+                    placeholder={this.state.password}
                 />
                 <Button
                     style={styles.login}
