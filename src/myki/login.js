@@ -36,7 +36,7 @@ export default class LoginForm extends Component {
     render() {
         return(
             <View style={styles.container}>
-                <Text style={styles.h1}>Log into myki</Text>
+                <Text style={styles.h1}>Login</Text>
                 <Text style={styles.label}>Username</Text>
                 <TextInput 
                     style={styles.textbox}
@@ -64,8 +64,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        paddingTop: 80
     },
     textbox: {
         borderWidth: 0.5,
@@ -73,7 +73,8 @@ const styles = StyleSheet.create({
         borderColor: '#DADADA',
         width: 306,
         height: 60,
-        marginBottom: 32
+        marginBottom: 32,
+        padding: 16,
     },
     label: {
         fontSize: 22,
