@@ -26,7 +26,7 @@ class cardBalance extends Component {
         'password': this.props.password
     }
 
-    postData(`http://localhost:3000/myki/balance`, auth)
+    postData(`https://asia-northeast1-myki-api.cloudfunctions.net/getBalance`, auth)
     .then((responseJson) => {
       this.setState({
         isLoading: false,
