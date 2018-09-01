@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, ActivityIndicator, Text, View  } from 'react-native';
+import { FlatList, ActivityIndicator, StyleSheet, Text, View  } from 'react-native';
 
 const postData = (url = ``, data = {} ) => {
   return fetch(url, {
@@ -12,11 +12,11 @@ const postData = (url = ``, data = {} ) => {
   .then((response) => {
     console.log(response);
     if (response.status == 401) {
-      throw new Error("Unauthorised")
+      throw new Error("Unauthorised");
     }
   })
   .catch((error) => {
-    console.error(error)
+    console.error(error);
   })
 }
 
@@ -50,7 +50,7 @@ class cardBalance extends Component {
     if(this.state.isLoading){
       return(
         <View style={{flex: 1, padding: 50, alignItems: 'center'}}>
-          <ActivityIndicator/>
+          <View style={styles.card}></View>
           <Text style={{paddingTop: 10, fontSize: 30}}>Loading Your Myki Balance</Text>
         </View>
       )
@@ -65,5 +65,11 @@ class cardBalance extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  card: {
+    backgroundColor: '#C4C4C4'
+  }
+});
 
 export default cardBalance;
