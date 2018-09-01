@@ -14,7 +14,7 @@ export default class MykiCheck extends Component {
         }
     }
 
-    _handleLogin = (email, password) => {
+    _submitForm = (email, password) => {
         this.setState({
             formSubmitted: true,
             email: email,
@@ -22,18 +22,24 @@ export default class MykiCheck extends Component {
         });
     }
 
+    _loginFailed = () => {
+        this.setState({
+            formSubmitted: false
+        });
+    }
+
     render() {
         if (this.state.formSubmitted) {
              return (
                 <View style={styles.container}>
-                    <CardBalance username={this.state.email} password={this.state.password} />
+                    <CardBalance username={this.state.email} password={this.state.password} loginFailed={this._loginFailed} />
                 </View>
             )
         }
 
         return (
             <View style={styles.container}>
-                <Login handleLogin={this._handleLogin} />
+                <Login submitForm={this._submitForm} />
             </View>
         )
     }
