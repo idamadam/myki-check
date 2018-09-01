@@ -9,8 +9,15 @@ const postData = (url = ``, data = {} ) => {
     },
     body: JSON.stringify(data)
   })
-  .then((response) => response.json())
-  .catch(error => console.error(error))
+  .then((response) => {
+    console.log(response);
+    if (response.status == 401) {
+      throw new Error("Unauthorised")
+    }
+  })
+  .catch((error) => {
+    console.error(error)
+  })
 }
 
 class cardBalance extends Component {
