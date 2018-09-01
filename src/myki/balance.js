@@ -10,12 +10,14 @@ const postData = (url = ``, data = {} ) => {
     body: JSON.stringify(data)
   })
   .then((response) => {
-    console.log(response);
-    if (response.status == 401) {
-      throw new Error("Unauthorised");
+    if (response.status == 403) {
+      throw new Error('Incorrect login details')
+    } else {
+      return response.json()
     }
   })
   .catch((error) => {
+    //Alert.alert(error);
     console.error(error);
   })
 }
