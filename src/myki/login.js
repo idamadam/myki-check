@@ -29,17 +29,19 @@ export default class LoginForm extends Component {
     render() {
         return(
             <View style={styles.container}>
-                <Text>Username</Text>
+                <Text style={styles.h1}>Log into myki</Text>
+                <Text style={styles.label}>Username</Text>
                 <TextInput 
                     style={styles.textbox}
                     onChangeText={this._updateEmail}
                 />
-                <Text>Password</Text>
+                <Text style={styles.label}>Password</Text>
                 <TextInput 
                     style={styles.textbox} 
                     onChangeText={this._updatePassword}
                 />
                 <Button
+                    style={styles.login}
                     onPress= {this._onPress}
                     title="Login" 
                 />
@@ -58,9 +60,26 @@ const styles = StyleSheet.create({
     },
     textbox: {
         borderWidth: 0.5,
-        borderRadius: 4,
-        borderColor: '#000000',
-        width: 100,
-        marginBottom: 10
+        borderRadius: 6,
+        borderColor: '#DADADA',
+        width: 306,
+        height: 60,
+        marginBottom: 32
+    },
+    label: {
+        fontSize: 22,
+        width: 306,
+        marginBottom: 4
+    },
+    login: {
+        backgroundColor: '#007AFF',
+        width: 306,
+        color: '#FFFFFF'
+    },
+    h1: {
+        fontSize: 64,
+        fontWeight: '800',
+        width: 306,
+        marginBottom: 32
     }
 });
