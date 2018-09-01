@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Alert } from 'react-native';
+import { StyleSheet, Text, View, Alert, Vibration } from 'react-native';
 
 const postData = (url = ``, data = {} ) => {
   return fetch(url, {
@@ -31,6 +31,7 @@ class cardBalance extends Component {
     postData(`https://asia-northeast1-myki-api.cloudfunctions.net/getBalance`, auth)
     .then((response) => {
       if (response.error) {
+        Vibration.vibrate();
         Alert.alert(response.error, 'Please try again', [{text: 'Try again', onPress: () => this.props.loginFailed() }])
       } else {
         this.setState({
