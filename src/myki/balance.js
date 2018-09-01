@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, ActivityIndicator, StyleSheet, Text, View  } from 'react-native';
+import { StyleSheet, Text, View, Alert } from 'react-native';
 
 const postData = (url = ``, data = {} ) => {
   return fetch(url, {
@@ -39,7 +39,7 @@ class cardBalance extends Component {
     .then((responseJson) => {
       this.setState({
         isLoading: false,
-        dataSource: responseJson
+        balance: responseJson.balance
       }, function(){});
     })
     .catch((error) =>{
@@ -51,18 +51,19 @@ class cardBalance extends Component {
 
     if(this.state.isLoading){
       return(
-        <View style={{flex: 1, padding: 50, alignItems: 'center'}}>
+        <View style={styles.contaniner}>
           <View style={styles.card}></View>
-          <Text style={{paddingTop: 10, fontSize: 30}}>Loading Your Myki Balance</Text>
+          <Text style={styles.h1}>Loading Your Myki Balance</Text>
         </View>
       )
     }
 
     return(
-      <View style={{flex: 1, paddingTop:50, alignItems: 'center'}}>
-        <Text style={{fontSize:30}}>
-          Your balance is: {this.state.dataSource.balance}
-        </Text>
+      <View style={styles.container}>
+        <View style={styles.card}></View>
+        <Text style={styles.h2}>👋 G'day</Text>
+        <Text style={styles.h1}>{this.state.balance}</Text>
+        <Text style={styles.h2}>myki Money</Text>
       </View>
     );
   }
@@ -70,7 +71,28 @@ class cardBalance extends Component {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#C4C4C4'
+    backgroundColor: '#C4C4C4',
+    width: 304,
+    height: 182,
+    marginBottom: 10,
+    borderRadius: 18
+  },
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  h1: {
+    fontSize: 64,
+    fontWeight: '800',
+    width: 306,
+    marginBottom: 8
+  },
+  h2: {
+    fontSize: 32,
+    fontWeight: '500',
+    width: 306,
   }
 });
 
