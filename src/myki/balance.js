@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Alert, Vibration } from 'react-native';
+import { StyleSheet, Text, View, Alert, Vibration, Button } from 'react-native';
 
 const postData = (url = ``, data = {} ) => {
   return fetch(url, {
@@ -58,6 +58,7 @@ class cardBalance extends Component {
 
     return(
       <View style={styles.container}>
+        <Button title="Log Out" onPress={this.props.logout} color="#C10000"/>
         <View style={styles.card}></View>
         <Text style={styles.h2}>👋 G'day</Text>
         <Text style={styles.h1}>{this.state.balance}</Text>

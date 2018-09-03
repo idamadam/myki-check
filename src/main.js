@@ -22,17 +22,17 @@ export default class MykiCheck extends Component {
         });
     }
 
-    _loginFailed = () => {
+    _logout = () => {
         this.setState({
             formSubmitted: false
-        });
+        })
     }
 
     render() {
         if (this.state.formSubmitted) {
              return (
                 <View style={styles.container}>
-                    <CardBalance username={this.state.email} password={this.state.password} loginFailed={this._loginFailed} />
+                    <CardBalance username={this.state.email} password={this.state.password} loginFailed={this._logout} logout={this._logout} />
                 </View>
             )
         }
