@@ -48,6 +48,7 @@ export default class LoginForm extends Component {
                     style={styles.textbox} 
                     onChangeText={this._updatePassword}
                     placeholder={this.state.password}
+                    secureTextEntry
                 />
                 <Button
                     style={styles.login}
