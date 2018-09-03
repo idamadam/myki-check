@@ -42,6 +42,9 @@ export default class LoginForm extends Component {
                     style={styles.textbox}
                     onChangeText={this._updateEmail}
                     placeholder={this.state.email}
+                    autoCapitalize='none'
+                    autoCorrect={false}
+
                 />
                 <Text style={styles.label}>Password</Text>
                 <TextInput 
@@ -49,6 +52,8 @@ export default class LoginForm extends Component {
                     onChangeText={this._updatePassword}
                     placeholder={this.state.password}
                     secureTextEntry
+                    autoCapitalize='none'
+                    autoCorrect={false}
                 />
                 <Button
                     style={styles.login}
