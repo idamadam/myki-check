@@ -11,7 +11,11 @@ const RootStack = createStackNavigator(
         Balance: CardBalance
     },
     {
-        initialRouteName: 'Login'
+        initialRouteName: 'Login',
+        headerMode: 'none',
+        cardStyle: {
+            backgroundColor: 'white'
+        }
     }
 )
 
