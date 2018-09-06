@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Alert, Vibration, Button } from 'react-native';
+import { SecureStore } from 'expo';
 
 const postData = (url = ``, data = {} ) => {
   return fetch(url, {
@@ -22,7 +23,7 @@ class cardBalance extends Component {
     this.state = { isLoading: true }
   }
 
-  _getBalance = (username, password) => {
+  _getBalance = async (username, password) => {
     let auth = {
       username: username,
       password: password
@@ -34,6 +35,7 @@ class cardBalance extends Component {
         Vibration.vibrate();
         Alert.alert(response.error, 'Please try again', [{text: 'Try again', onPress: () => this.props.navigation.navigate('Login') }])
       } else {
+        this._storeLogin(auth.username, auth.password)
         this.setState({
           isLoading: false,
           balance:response.balance
@@ -43,6 +45,11 @@ class cardBalance extends Component {
     .catch((error) =>{
       console.error(error);
     });
+  }
+
+  async _storeLogin(username, password) {
+    await SecureStore.setItemAsync('MYKI_USERNAME', username);
+    await SecureStore.setItemAsync('MYKI_PASSWORD', password);
   }
 
   componentDidMount(){
@@ -55,18 +62,20 @@ class cardBalance extends Component {
     
   }
   
-  _refresh = () => {
+  _refresh = async () => {
     this.setState({
       balance: 'Loading...'
     })
 
-    let username = this.props.navigation.getParam('username');
-    let password = this.props.navigation.getParam('password');
+    let username = await SecureStore.getItemAsync('MYKI_USERNAME');
+    let password = await SecureStore.getItemAsync('MYKI_PASSWORD');
 
     this._getBalance(username, password);
   }
 
-  _logout = () => {
+  _logout = async () => {
+    await SecureStore.deleteItemAsync('MYKI_USERNAME');
+    await SecureStore.deleteItemAsync('MYKI_PASSWORD');
     this.props.navigation.navigate('Login');
   }
 
@@ -74,7 +83,7 @@ class cardBalance extends Component {
 
     if(this.state.isLoading){
       return(
-        <View style={styles.contaniner}>
+        <View style={styles.loadingView}>
           <View style={styles.card}></View>
           <Text style={styles.h1}>Loading Your Myki Balance</Text>
         </View>
@@ -107,8 +116,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    paddingTop: 80,
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingTop: 80
+  },
+  loadingView: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    paddingTop: 180
   },
   navButtons: {
     alignSelf: 'stretch',
