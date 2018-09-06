@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, ActivityIndicator, Text, View, TextInput, StyleSheet, Button, Alert  } from 'react-native';
+import { Text, View, TextInput, StyleSheet, Button, Alert  } from 'react-native';
 
 export default class LoginForm extends Component {
     constructor(props) {
