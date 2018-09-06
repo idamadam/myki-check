@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, TextInput, StyleSheet, Button, Alert  } from 'react-native';
+import { SecureStore } from 'expo';
 
 export default class LoginForm extends Component {
     constructor(props) {
