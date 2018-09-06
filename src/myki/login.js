@@ -74,6 +74,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         alignItems: 'center',
+        paddingTop: 80
     },
     textbox: {
         borderWidth: 0.5,
