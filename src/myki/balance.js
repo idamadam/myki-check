@@ -23,16 +23,18 @@ class cardBalance extends Component {
   }
 
   componentDidMount(){
+    const { navigation } = this.props;
+
     let auth = {
-        'username': this.props.username,
-        'password': this.props.password
+        username: navigation.getParam('username'),
+        password: navigation.getParam('password')
     }
 
     postData(`https://asia-northeast1-myki-api.cloudfunctions.net/getBalance`, auth)
     .then((response) => {
       if (response.error) {
         Vibration.vibrate();
-        Alert.alert(response.error, 'Please try again', [{text: 'Try again', onPress: () => this.props.loginFailed() }])
+        Alert.alert(response.error, 'Please try again', [{text: 'Try again', onPress: () => this.props.navigation.navigate('Login') }])
       } else {
         this.setState({
           isLoading: false,
@@ -43,6 +45,10 @@ class cardBalance extends Component {
     .catch((error) =>{
       console.error(error);
     });
+  }
+
+  _logout() {
+    this.props.navigation.navigate('Login');
   }
 
   render(){
@@ -58,7 +64,7 @@ class cardBalance extends Component {
 
     return(
       <View style={styles.container}>
-        <Button title="Log Out" onPress={this.props.logout} color="#C10000"/>
+        <Button title="Log Out" onPress={this._logout} color="#C10000"/>
         <View style={styles.card}></View>
         <Text style={styles.h2}>👋 G'day</Text>
         <Text style={styles.h1}>{this.state.balance}</Text>

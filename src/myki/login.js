@@ -29,7 +29,10 @@ export default class LoginForm extends Component {
         if (email.length == 0 || password.length == 0) {
             Alert.alert('Please fill in form');
         } else {
-            this.props.submitForm(email, password);
+            this.props.navigation.navigate('Balance', {
+                username: email,
+                password: password
+            });
         }
     }
 
@@ -71,7 +74,6 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         alignItems: 'center',
-        paddingTop: 80
     },
     textbox: {
         borderWidth: 0.5,
