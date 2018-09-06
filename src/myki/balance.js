@@ -25,11 +25,12 @@ class cardBalance extends Component {
   componentDidMount(){
     const { navigation } = this.props;
 
+  _getBalance = (username, password) => {
     let auth = {
-        username: navigation.getParam('username'),
-        password: navigation.getParam('password')
+      username: username,
+      password: password
     }
-
+  
     postData(`https://asia-northeast1-myki-api.cloudfunctions.net/getBalance`, auth)
     .then((response) => {
       if (response.error) {
@@ -48,6 +49,15 @@ class cardBalance extends Component {
   }
 
   _logout() {
+  componentDidMount(){
+    const { navigation } = this.props;
+
+    let username = navigation.getParam('username');
+    let password = navigation.getParam('password');
+
+    this._getBalance(username, password)
+    
+  }
     this.props.navigation.navigate('Login');
   }
 
