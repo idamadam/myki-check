@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Alert, Vibration } from 'react-native';
+import { StyleSheet, Text, View, Alert, Vibration, Button } from 'react-native';
 
 const postData = (url = ``, data = {} ) => {
   return fetch(url, {
@@ -22,17 +22,17 @@ class cardBalance extends Component {
     this.state = { isLoading: true }
   }
 
-  componentDidMount(){
+  _getBalance = (username, password) => {
     let auth = {
-        'username': this.props.username,
-        'password': this.props.password
+      username: username,
+      password: password
     }
-
+  
     postData(`https://asia-northeast1-myki-api.cloudfunctions.net/getBalance`, auth)
     .then((response) => {
       if (response.error) {
         Vibration.vibrate();
-        Alert.alert(response.error, 'Please try again', [{text: 'Try again', onPress: () => this.props.loginFailed() }])
+        Alert.alert(response.error, 'Please try again', [{text: 'Try again', onPress: () => this.props.navigation.navigate('Login') }])
       } else {
         this.setState({
           isLoading: false,
@@ -43,6 +43,31 @@ class cardBalance extends Component {
     .catch((error) =>{
       console.error(error);
     });
+  }
+
+  componentDidMount(){
+    const { navigation } = this.props;
+
+    let username = navigation.getParam('username');
+    let password = navigation.getParam('password');
+
+    this._getBalance(username, password)
+    
+  }
+  
+  _refresh = () => {
+    this.setState({
+      balance: 'Loading...'
+    })
+
+    let username = this.props.navigation.getParam('username');
+    let password = this.props.navigation.getParam('password');
+
+    this._getBalance(username, password);
+  }
+
+  _logout = () => {
+    this.props.navigation.navigate('Login');
   }
 
   render(){
@@ -58,6 +83,10 @@ class cardBalance extends Component {
 
     return(
       <View style={styles.container}>
+        <View style={styles.navButtons}>
+          <Button title="Refresh" onPress={this._refresh}/>
+          <Button title="Log Out" onPress={this._logout} color="#C10000"/>
+        </View>
         <View style={styles.card}></View>
         <Text style={styles.h2}>👋 G'day</Text>
         <Text style={styles.h1}>{this.state.balance}</Text>
@@ -78,8 +107,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'center',
+    paddingTop: 80,
     alignItems: 'center'
+  },
+  navButtons: {
+    alignSelf: 'stretch',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems:'center',
+    padding: 30,
+    marginBottom: 30
   },
   h1: {
     fontSize: 64,

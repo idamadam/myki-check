@@ -29,7 +29,10 @@ export default class LoginForm extends Component {
         if (email.length == 0 || password.length == 0) {
             Alert.alert('Please fill in form');
         } else {
-            this.props.submitForm(email, password);
+            this.props.navigation.navigate('Balance', {
+                username: email,
+                password: password
+            });
         }
     }
 
@@ -42,12 +45,18 @@ export default class LoginForm extends Component {
                     style={styles.textbox}
                     onChangeText={this._updateEmail}
                     placeholder={this.state.email}
+                    autoCapitalize='none'
+                    autoCorrect={false}
+
                 />
                 <Text style={styles.label}>Password</Text>
                 <TextInput 
                     style={styles.textbox} 
                     onChangeText={this._updatePassword}
                     placeholder={this.state.password}
+                    secureTextEntry
+                    autoCapitalize='none'
+                    autoCorrect={false}
                 />
                 <Button
                     style={styles.login}

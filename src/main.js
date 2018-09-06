@@ -1,10 +1,25 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { createStackNavigator } from 'react-navigation';
 
 import CardBalance from './myki/balance'
 import Login from './myki/login';
 
-export default class MykiCheck extends Component {
+const RootStack = createStackNavigator(
+    {
+        Login: Login,
+        Balance: CardBalance
+    },
+    {
+        initialRouteName: 'Login',
+        headerMode: 'none',
+        cardStyle: {
+            backgroundColor: 'white'
+        }
+    }
+)
+
+export default class App extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -14,34 +29,8 @@ export default class MykiCheck extends Component {
         }
     }
 
-    _submitForm = (email, password) => {
-        this.setState({
-            formSubmitted: true,
-            email: email,
-            password: password
-        });
-    }
-
-    _loginFailed = () => {
-        this.setState({
-            formSubmitted: false
-        });
-    }
-
     render() {
-        if (this.state.formSubmitted) {
-             return (
-                <View style={styles.container}>
-                    <CardBalance username={this.state.email} password={this.state.password} loginFailed={this._loginFailed} />
-                </View>
-            )
-        }
-
-        return (
-            <View style={styles.container}>
-                <Login submitForm={this._submitForm} />
-            </View>
-        )
+       return  <RootStack />
     }
 }
 
