@@ -34,17 +34,22 @@ export default class LoginForm extends Component {
         })
     }
 
-    _onPress = () => {
+    _login = (username, password) => {
+        console.log(username, password)
+        this.props.navigation.navigate('Balance', {
+            username: username,
+            password: password
+        })
+    }
+
+    _onPress = async () => {
         email = this.state.email;
         password = this.state.password;
 
         if (email.length == 0 || password.length == 0) {
             Alert.alert('Please fill in form');
         } else {
-            this.props.navigation.navigate('Balance', {
-                username: email,
-                password: password
-            });
+            this._login(email, password);
         }
     }
 
