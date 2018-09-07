@@ -15,8 +15,6 @@ export default class LoginForm extends Component {
         let username = await SecureStore.getItemAsync('MYKI_USERNAME');
         let password = await SecureStore.getItemAsync('MYKI_PASSWORD');
 
-        console.log(username, password)
-
         if (username != null && password != null) {
             this._login(username, password)
         }
