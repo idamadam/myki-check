@@ -29,7 +29,7 @@ class cardBalance extends Component {
       password: password
     }
   
-    postData(`https://asia-northeast1-myki-api.cloudfunctions.net/getBalance`, auth)
+    postData(`https://9tulzhs3q4.execute-api.ap-southeast-2.amazonaws.com/dev/myki/balance`, auth)
     .then((response) => {
       if (response.error) {
         Vibration.vibrate();
