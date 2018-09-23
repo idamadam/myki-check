@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     },
     h1: {
         fontSize: 64,
-        fontWeight: '800',
+        fontWeight: '900',
         width: 306,
         marginBottom: 32
     }
