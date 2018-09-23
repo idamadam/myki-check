@@ -85,7 +85,8 @@ class cardBalance extends Component {
       return(
         <View style={styles.loadingView}>
           <View style={styles.card}></View>
-          <Text style={styles.h1}>Loading Your Myki Balance</Text>
+          <Text style={styles.h2}>👋 G'day</Text>
+          <Text style={styles.h1}>Logging you in...</Text>
         </View>
       )
     }
@@ -135,9 +136,10 @@ const styles = StyleSheet.create({
   },
   h1: {
     fontSize: 64,
-    fontWeight: '800',
+    fontWeight: '900',
     width: 306,
-    marginBottom: 8
+    marginBottom: 8,
+    paddingTop: 18
   },
   h2: {
     fontSize: 32,
