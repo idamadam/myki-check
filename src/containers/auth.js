@@ -1,20 +1,8 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Alert, AsyncStorage } from 'react-native';
+import { Text, View, StyleSheet, Alert, AsyncStorage, Vibration} from 'react-native';
 import { SecureStore } from 'expo';
 
-const postData = (url = ``, data = {} ) => {
-    return fetch(url, {
-        method: "POST",
-        headers:{
-        'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then((response) => response.json())
-    .catch((error) => {
-        console.error(error);
-    })
-}
+import getBalance from '../api/getBalance'
 
 export default class Auth extends Component {
     constructor(props) {
@@ -31,25 +19,14 @@ export default class Auth extends Component {
     }
 
     _getBalance = async (username, password) => {
-        let auth = {
-          username: username,
-          password: password
-        }  
-
         try {
-            let query = await postData(`https://9tulzhs3q4.execute-api.ap-southeast-2.amazonaws.com/dev/myki/balance`, auth);
-
-            if (query.error) {
-                Vibration.vibrate();
-                Alert.alert('Login failed', 'Your username or password was incorrect.', [{text: 'Try again', onPress: () => this.props.navigation.navigate('Login') }]);
-            } else {
-                this._storeLogin(auth.username, auth.password)
-                this._storeBalance(query.balance)
-                this.props.navigation.navigate('Balance');
-            }
-
-        } catch(e) {
-            console.error(e);
+          let balance = await getBalance(username, password);
+          this._storeBalance(balance);  
+          this._storeLogin(username, password);
+          this.props.navigation.navigate('Balance')
+        } catch (error) {
+          Vibration.vibrate();
+          Alert.alert('Login failed', error.message, [{text: 'Try again', onPress: () => this.props.navigation.navigate('Login') }])
         }
     }
 

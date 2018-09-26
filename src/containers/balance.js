@@ -2,19 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Alert, Vibration, Button, AsyncStorage } from 'react-native';
 import { SecureStore } from 'expo';
 
-const postData = (url = ``, data = {} ) => {
-  return fetch(url, {
-    method: "POST",
-    headers:{
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  })
-  .then((response) => response.json())
-  .catch((error) => {
-    console.error(error);
-  })
-}
+import getBalance  from '../api/getBalance'
 
 class cardBalance extends Component {
 
@@ -27,26 +15,14 @@ class cardBalance extends Component {
   }
 
   _getBalance = async (username, password) => {
-    let auth = {
-      username: username,
-      password: password
+    try {
+      let balance = await getBalance(username, password);
+      this._storeLogin(username, password);
+      this.setState({ balance: balance });
+    } catch (error) {
+      Vibration.vibrate();
+      Alert.alert(error, 'Please try again', [{text: 'Try again', onPress: () => this.props.navigation.navigate('Login') }])
     }
-  
-    postData(`https://9tulzhs3q4.execute-api.ap-southeast-2.amazonaws.com/dev/myki/balance`, auth)
-    .then((response) => {
-      if (response.error) {
-        Vibration.vibrate();
-        Alert.alert(response.error, 'Please try again', [{text: 'Try again', onPress: () => this.props.navigation.navigate('Login') }])
-      } else {
-        this._storeLogin(auth.username, auth.password)
-        this.setState({
-          balance:response.balance
-        });
-      }
-    })
-    .catch((error) =>{
-      console.error(error);
-    });
   }
 
   _readBalance = async () => {
