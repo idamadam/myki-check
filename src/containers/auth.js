@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, TextInput, StyleSheet, Button, Alert  } from 'react-native';
+import { Text, View, StyleSheet, Alert, AsyncStorage } from 'react-native';
 import { SecureStore } from 'expo';
 
 const postData = (url = ``, data = {} ) => {
@@ -26,11 +26,8 @@ export default class Auth extends Component {
         await SecureStore.setItemAsync('MYKI_PASSWORD', password);
     }
 
-    _isLoginStored = async () => {
-        let username =  await SecureStore.getItemAsync('MYKI_USERNAME');
-        let password =  await SecureStore.getItemAsync('MYKI_PASSWORD');
-
-        console.log(username, password);
+    _storeBalance = async(balance) => {
+        await AsyncStorage.setItem('MYKI_BALANCE', balance);
     }
 
     _getBalance = async (username, password) => {
@@ -40,23 +37,30 @@ export default class Auth extends Component {
         }  
 
         try {
-            let query = await postData(`https://asia-northeast1-myki-api.cloudfunctions.net/fastBalance`, auth);
+            let query = await postData(`https://9tulzhs3q4.execute-api.ap-southeast-2.amazonaws.com/dev/myki/balance`, auth);
 
             if (query.error) {
                 Vibration.vibrate();
                 Alert.alert('Login failed', 'Your username or password was incorrect.', [{text: 'Try again', onPress: () => this.props.navigation.navigate('Login') }]);
             } else {
                 this._storeLogin(auth.username, auth.password)
-                this.setState({
-                  isLoading: false,
-                  balance:response.balance
-                });
+                this._storeBalance(query.balance)
+                this.props.navigation.navigate('Balance');
             }
 
         } catch(e) {
-            console.error(error);
+            console.error(e);
         }
     }
+
+    componentDidMount(){
+        const { navigation } = this.props;
+    
+        let username = navigation.getParam('username');
+        let password = navigation.getParam('password');
+    
+        this._getBalance(username, password);
+      }
 
     render(){
         return(

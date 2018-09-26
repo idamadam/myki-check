@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Alert, Vibration, Button } from 'react-native';
+import { StyleSheet, Text, View, Alert, Vibration, Button, AsyncStorage } from 'react-native';
 import { SecureStore } from 'expo';
 
 const postData = (url = ``, data = {} ) => {
@@ -20,7 +20,10 @@ class cardBalance extends Component {
 
   constructor(props){
     super(props);
-    this.state = { isLoading: true }
+
+    this.state = {
+      balance: "Loading.."
+    }
   }
 
   _getBalance = async (username, password) => {
@@ -37,7 +40,6 @@ class cardBalance extends Component {
       } else {
         this._storeLogin(auth.username, auth.password)
         this.setState({
-          isLoading: false,
           balance:response.balance
         });
       }
@@ -47,24 +49,36 @@ class cardBalance extends Component {
     });
   }
 
+  _readBalance = async () => {
+    let storedBalance = await AsyncStorage.getItem('MYKI_BALANCE');
+    if (storedBalance !== null ) {
+      return storedBalance
+    } else {
+      this.props.navigation.navigate('Login')
+    }
+  }
+
   async _storeLogin(username, password) {
     await SecureStore.setItemAsync('MYKI_USERNAME', username);
     await SecureStore.setItemAsync('MYKI_PASSWORD', password);
   }
 
-  componentDidMount(){
-    const { navigation } = this.props;
+  async componentDidMount(){
+    let balance =  await this._readBalance();
+    let refreshParam = this.props.navigation.getParam('refresh');
 
-    let username = navigation.getParam('username');
-    let password = navigation.getParam('password');
+    this.setState({
+      balance: balance
+    })
 
-    this._getBalance(username, password)
-    
+    if (refreshParam) {
+      await this._refresh();
+    }
   }
   
   _refresh = async () => {
     this.setState({
-      balance: 'Loading...'
+      balance: 'Loading..'
     })
 
     let username = await SecureStore.getItemAsync('MYKI_USERNAME');
@@ -76,21 +90,11 @@ class cardBalance extends Component {
   _logout = async () => {
     await SecureStore.deleteItemAsync('MYKI_USERNAME');
     await SecureStore.deleteItemAsync('MYKI_PASSWORD');
+    await AsyncStorage.removeItem('MYKI_BALANCE');
     this.props.navigation.navigate('Login');
   }
 
   render(){
-
-    if(this.state.isLoading){
-      return(
-        <View style={styles.loadingView}>
-          <View style={styles.card}></View>
-          <Text style={styles.h2}>👋 G'day</Text>
-          <Text style={styles.h1}>Logging you in...</Text>
-        </View>
-      )
-    }
-
     return(
       <View style={styles.container}>
         <View style={styles.navButtons}>

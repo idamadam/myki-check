@@ -34,7 +34,7 @@ export default class LoginForm extends Component {
 
     _login = (username, password) => {
         console.log(username, password)
-        this.props.navigation.navigate('Balance', {
+        this.props.navigation.navigate('Auth', {
             username: username,
             password: password
         })
