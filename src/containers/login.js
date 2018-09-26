@@ -33,8 +33,7 @@ export default class LoginForm extends Component {
     }
 
     _login = (username, password) => {
-        console.log(username, password)
-        this.props.navigation.navigate('Balance', {
+        this.props.navigation.navigate('Auth', {
             username: username,
             password: password
         })
@@ -112,7 +111,7 @@ const styles = StyleSheet.create({
     },
     h1: {
         fontSize: 64,
-        fontWeight: '800',
+        fontWeight: '900',
         width: 306,
         marginBottom: 32
     }
