@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Alert, Vibration, Button, AsyncStorage } from 'react-native';
+import { StyleSheet, Text, View, Button, AsyncStorage } from 'react-native';
 import { SecureStore } from 'expo';
 
-import getBalance  from '../api/getBalance'
+import { getBalance, readBalance } from '../helpers/balance'
 
-class cardBalance extends Component {
+class CardBalance extends Component {
 
   constructor(props){
     super(props);
@@ -14,33 +14,8 @@ class cardBalance extends Component {
     }
   }
 
-  _getBalance = async (username, password) => {
-    try {
-      let balance = await getBalance(username, password);
-      this._storeLogin(username, password);
-      this.setState({ balance: balance });
-    } catch (error) {
-      Vibration.vibrate();
-      Alert.alert(error, 'Please try again', [{text: 'Try again', onPress: () => this.props.navigation.navigate('Login') }])
-    }
-  }
-
-  _readBalance = async () => {
-    let storedBalance = await AsyncStorage.getItem('MYKI_BALANCE');
-    if (storedBalance !== null ) {
-      return storedBalance
-    } else {
-      this.props.navigation.navigate('Login')
-    }
-  }
-
-  async _storeLogin(username, password) {
-    await SecureStore.setItemAsync('MYKI_USERNAME', username);
-    await SecureStore.setItemAsync('MYKI_PASSWORD', password);
-  }
-
   async componentDidMount(){
-    let balance =  await this._readBalance();
+    let balance =  await readBalance();
     let refreshParam = this.props.navigation.getParam('refresh');
 
     this.setState({
@@ -60,7 +35,9 @@ class cardBalance extends Component {
     let username = await SecureStore.getItemAsync('MYKI_USERNAME');
     let password = await SecureStore.getItemAsync('MYKI_PASSWORD');
 
-    this._getBalance(username, password);
+    this.setState({
+      balance: await getBalance(username, password)
+    });
   }
 
   _logout = async () => {
@@ -128,4 +105,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default cardBalance;
+export default CardBalance;

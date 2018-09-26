@@ -1,42 +1,22 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Alert, AsyncStorage, Vibration} from 'react-native';
-import { SecureStore } from 'expo';
+import { Text, View, StyleSheet } from 'react-native';
 
-import getBalance from '../api/getBalance'
+import { getBalance } from '../helpers/balance'
 
 export default class Auth extends Component {
     constructor(props) {
         super(props);
     }
 
-    _storeLogin = async (username, password) => {
-        await SecureStore.setItemAsync('MYKI_USERNAME', username);
-        await SecureStore.setItemAsync('MYKI_PASSWORD', password);
-    }
-
-    _storeBalance = async(balance) => {
-        await AsyncStorage.setItem('MYKI_BALANCE', balance);
-    }
-
-    _getBalance = async (username, password) => {
-        try {
-          let balance = await getBalance(username, password);
-          this._storeBalance(balance);  
-          this._storeLogin(username, password);
-          this.props.navigation.navigate('Balance')
-        } catch (error) {
-          Vibration.vibrate();
-          Alert.alert('Login failed', error.message, [{text: 'Try again', onPress: () => this.props.navigation.navigate('Login') }])
-        }
-    }
-
-    componentDidMount(){
+    async componentDidMount(){
         const { navigation } = this.props;
     
         let username = navigation.getParam('username');
         let password = navigation.getParam('password');
     
-        this._getBalance(username, password);
+        await getBalance(username, password);
+
+        this.props.navigation.navigate("Balance")
       }
 
     render(){

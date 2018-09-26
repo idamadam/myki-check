@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
+import { View, AsyncStorage } from 'react-native';
 
 export default class Splash extends Component {
     constructor(props) {
