@@ -23,6 +23,6 @@ export default async function getBalance (username, password) {
     if (response.error) {
         throw new Error (response.error)
     } else {
-        return response.balance
+        return response
     }
 }

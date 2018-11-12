@@ -7,9 +7,9 @@ import apiBalance from '../api/getBalance'
 export async function getBalance (username, password) {
     try {
       let balance = await apiBalance(username, password);
-      await storeBalance(balance);  
+      await storeBalance(balance.money);  
       await storeLogin(username, password);
-      return balance;
+      return balance.money;
     } catch (error) {
       Vibration.vibrate();
       Alert.alert('Login failed', error, [{text: 'Try again', onPress: () => this.props.navigation.navigate('Login') }])
