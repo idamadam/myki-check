@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 
-import { getBalance } from '../helpers/balance'
+import { getBalance } from '../actions/balance'
 
 export default class Auth extends Component {
     constructor(props) {

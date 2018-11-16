@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button, AsyncStorage } from 'react-native';
 import { SecureStore } from 'expo';
 
-import { getBalance, readBalance } from '../helpers/balance'
+import { getBalance, readBalance } from '../actions/balance'
 
 class CardBalance extends Component {
 
