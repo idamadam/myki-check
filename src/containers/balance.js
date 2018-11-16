@@ -58,6 +58,7 @@ class CardBalance extends Component {
         <Text style={styles.h2}>👋 Hi</Text>
         <Text style={styles.h1}>{this.state.balance}</Text>
         <Text style={styles.h3}>myki Money</Text>
+        <Text style={styles.footer}>Updated 2 hours ago</Text>
       </View>
     );
   }
@@ -112,6 +113,12 @@ const styles = StyleSheet.create({
     opacity: 0.8,
     width: 306,
   },
+  footer: {
+    width: 306,
+    fontSize: 12,
+    color: "#FFFFFF",
+    opacity: 0.5,
+    paddingTop: 64
   }
 });
 
