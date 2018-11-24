@@ -10,7 +10,10 @@ export default class Balance extends Component {
     render(){
         return(
             <View>
-                <Moment fromNow element={Text} style={styles.footer}>{this.props.lastUpdated}</Moment>
+                { this.props.lastUpdated
+                    ? <Moment fromNow element={Text} style={styles.footer}>{this.props.lastUpdated}</Moment>
+                    : <Text style={styles.footer}>Updating</Text>
+               }
             </View>
         );
     }
