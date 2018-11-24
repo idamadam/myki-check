@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Text, View, TextInput, StyleSheet, Button, Alert  } from 'react-native';
 import { SecureStore } from 'expo';
 
+import Input from '../components/textinput'
+
 export default class LoginForm extends Component {
     constructor(props) {
         super(props);
@@ -54,18 +56,16 @@ export default class LoginForm extends Component {
         return(
             <View style={styles.container}>
                 <Text style={styles.h1}>Login</Text>
-                <Text style={styles.label}>Username</Text>
-                <TextInput 
-                    style={styles.textbox}
+                <Input
+                    label="Username"
                     onChangeText={this._updateEmail}
                     placeholder={this.state.email}
                     autoCapitalize='none'
                     autoCorrect={false}
 
                 />
-                <Text style={styles.label}>Password</Text>
-                <TextInput 
-                    style={styles.textbox} 
+                <Input
+                    label="Password"
                     onChangeText={this._updatePassword}
                     placeholder={this.state.password}
                     secureTextEntry
@@ -89,20 +89,6 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         paddingTop: 80
-    },
-    textbox: {
-        borderWidth: 0.5,
-        borderRadius: 6,
-        borderColor: '#DADADA',
-        width: 306,
-        height: 60,
-        marginBottom: 32,
-        padding: 16,
-    },
-    label: {
-        fontSize: 22,
-        width: 306,
-        marginBottom: 4
     },
     login: {
         backgroundColor: '#007AFF',
