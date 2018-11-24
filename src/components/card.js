@@ -1,5 +1,35 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import styled from 'styled-components/native';
+
+const CardBackground = styled.View`
+    background-color: #4B4C51;
+    width: 304;
+    height: 182;
+    margin-bottom: 10;
+    border-radius: 18;
+    shadow-color: #000000;
+    shadow-opacity: 1.0;
+    shadow-offset: 0px 5px;
+    shadow-radius: 10px;
+`
+const MykiPattern = styled.Image`
+    position: absolute;
+    top: 10;
+`
+const Metadata = styled.View`
+    padding-top: 120px;
+    padding-left: 18px;
+`
+const Accountholder = styled.Text`
+    font-size: 18px;
+    color: #FFFCF6;
+    font-weight: 500;
+`
+const CardNumber = styled.Text`
+    color: #FFFCF6;
+    opacity: 0.6;
+    font-size: 13px;
+`
 
 export default class Card extends Component {
     constructor(props) {
@@ -8,45 +38,13 @@ export default class Card extends Component {
 
     render(){
         return(
-            <View style={styles.card}>
-                <Image source={require('../images/mykipattern.png')} style={styles.background}/>
-                <View style={styles.metadata}>
-                    <Text style={styles.cardName}>{this.props.accountHolder ? this.props.accountHolder : ''}</Text>
-                    <Text style={styles.cardNumber}>{this.props.cardNumber ? this.props.cardNumber : ''}</Text>
-                </View>
-            </View>
+            <CardBackground>
+                <MykiPattern source={require('../images/mykipattern.png')} />
+                <Metadata>
+                    <Accountholder>{this.props.accountHolder ? this.props.accountHolder : ''}</Accountholder>
+                    <CardNumber>{this.props.cardNumber ? this.props.cardNumber : ''}</CardNumber>
+                </Metadata>
+            </CardBackground>
         );
     }
 }
-
-const styles = StyleSheet.create({
-    card: {
-        backgroundColor: '#4B4C51',
-        width: 304,
-        height: 182,
-        marginBottom: 10,
-        borderRadius: 18,
-        shadowColor: '#000000',
-        shadowOpacity: 1.0,
-        shadowOffset: {width: 0, height: 5},
-        shadowRadius: 10
-    },
-    background: {
-        position: 'absolute',
-        top: 10
-    },
-    metadata: {
-        paddingTop: 120,
-        paddingLeft: 18
-    },
-    cardName: {
-        fontSize: 18,
-        color: '#FFFCF6',
-        fontWeight: '500',
-    },
-    cardNumber: {
-        color: '#FFFCF6',
-        opacity: 0.6,
-        fontSize: 13
-    }
-})

@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View  } from 'react-native';
-import Moment from 'react-moment';
+import styled from 'styled-components/native'
+import moment from 'moment'
+
+const Caption = styled.Text`
+    width: 306;
+    font-size: 12;
+    color: white;
+    opacity: 0.5;
+    padding-top: 64;
+`
 
 export default class Balance extends Component {
     constructor(props){
@@ -8,23 +16,11 @@ export default class Balance extends Component {
     }
 
     render(){
+        let timeSinceUpdate = moment(this.props.lastUpdated).fromNow();
         return(
-            <View>
-                { this.props.lastUpdated
-                    ? <Moment fromNow element={Text} style={styles.footer}>{this.props.lastUpdated}</Moment>
-                    : <Text style={styles.footer}>Updating</Text>
-               }
-            </View>
+            <Caption>
+                {this.props.lastUpdated ? `Updated ${timeSinceUpdate}` : `Updating` }
+            </Caption>
         );
     }
 }
-
-const styles = StyleSheet.create({
-    footer: {
-        width: 306,
-        fontSize: 12,
-        color: "#FFFFFF",
-        opacity: 0.5,
-        paddingTop: 64
-      }  
-})

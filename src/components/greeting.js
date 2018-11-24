@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text } from 'react-native'
+import styled from 'styled-components/native'
+
+const H2 = styled.Text`
+    font-size: 32;
+    font-weight: 500;
+    width: 306;
+    color: white;
+`
 
 export default class Greeting extends Component {
     constructor(props) {
@@ -8,16 +15,7 @@ export default class Greeting extends Component {
 
     render(){
         return(
-            <Text style={styles.h2}>👋 Good morning</Text>
+            <H2>👋 Good morning</H2>
         );
     }
 }
-
-const styles = StyleSheet.create({
-    h2: {
-        fontSize: 32,
-        fontWeight: '500',
-        width: 306,
-        color: "#FFFFFF"
-    },
-})
