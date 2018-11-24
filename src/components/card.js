@@ -11,8 +11,8 @@ export default class Card extends Component {
             <View style={styles.card}>
                 <Image source={require('../images/mykipattern.png')} style={styles.background}/>
                 <View style={styles.metadata}>
-                    <Text style={styles.cardName}>AHMED ADAM</Text>
-                    <Text style={styles.cardNumber}>3084 2536 6601 365</Text>
+                    <Text style={styles.cardName}>{this.props.accountHolder ? this.props.accountHolder : ''}</Text>
+                    <Text style={styles.cardNumber}>{this.props.cardNumber ? this.props.cardNumber : ''}</Text>
                 </View>
             </View>
         );

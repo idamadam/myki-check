@@ -74,7 +74,7 @@ class CardBalance extends Component {
           <Button title="Refresh" onPress={this._refresh} color="#FFFFFF"/>
           <Button title="Log Out" onPress={this._logout} color="#C10000"/>
         </View>
-        <Card />
+        <Card accountHolder={this.state.accountHolder} cardNumber="1234567890"/>
         <Greeting />
         <Balance data={this.state.data.money} caption="myki Money" />
         <Footer lastUpdated={this.state.data.lastUpdated}/>
