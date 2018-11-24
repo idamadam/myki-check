@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button, AsyncStorage } from 'react-native';
 import { SecureStore } from 'expo';
 
-import { getBalance, readBalance } from '../actions/balance'
+import { getData, readData } from '../actions/data'
+
 import Card from '../components/card'
 import Greeting from '../components/greeting'
 import Balance from '../components/balance'
@@ -19,7 +20,7 @@ class CardBalance extends Component {
   }
 
   async componentDidMount(){
-    let balance =  await readBalance();
+    let data =  await readData(this.props.navigation);
     let refreshParam = this.props.navigation.getParam('refresh');
 
     this.setState({
@@ -39,8 +40,9 @@ class CardBalance extends Component {
     let username = await SecureStore.getItemAsync('MYKI_USERNAME');
     let password = await SecureStore.getItemAsync('MYKI_PASSWORD');
 
+    await getData(username, password);
+    data = await readData(this.props.navigation);
     this.setState({
-      balance: await getBalance(username, password)
     });
   }
 

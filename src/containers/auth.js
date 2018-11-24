@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 
-import { getBalance } from '../actions/balance'
+import { getData } from '../actions/data'
 
 export default class Auth extends Component {
     constructor(props) {
@@ -14,7 +14,7 @@ export default class Auth extends Component {
         let username = navigation.getParam('username');
         let password = navigation.getParam('password');
     
-        await getBalance(username, password);
+        await getData(username, password);
 
         this.props.navigation.navigate("Balance")
       }
