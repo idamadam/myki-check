@@ -15,7 +15,9 @@ class CardBalance extends Component {
     super(props);
 
     this.state = {
-      balance: "Loading.."
+      balance: {
+        money: "Loading.."
+      }
     }
   }
 
@@ -24,7 +26,9 @@ class CardBalance extends Component {
     let refreshParam = this.props.navigation.getParam('refresh');
 
     this.setState({
-      balance: balance
+      balance: {
+        money: data.money
+      }
     })
 
     if (refreshParam) {
@@ -34,7 +38,9 @@ class CardBalance extends Component {
   
   _refresh = async () => {
     this.setState({
-      balance: 'Loading..'
+      balance: {
+        money: 'Loading..'
+      }
     })
 
     let username = await SecureStore.getItemAsync('MYKI_USERNAME');
@@ -43,6 +49,9 @@ class CardBalance extends Component {
     await getData(username, password);
     data = await readData(this.props.navigation);
     this.setState({
+      balance: {
+        money: data.money
+      }
     });
   }
 
@@ -62,7 +71,7 @@ class CardBalance extends Component {
         </View>
         <Card />
         <Greeting />
-        <Balance data={this.state.balance} caption="myki Money" />
+        <Balance data={this.state.balance.money} caption="myki Money" />
         <Footer />
       </View>
     );
