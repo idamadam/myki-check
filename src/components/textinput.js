@@ -6,6 +6,7 @@ const Label = styled.Text`
     font-size: 22px;
     width: 306px;
     margin-bottom: 4px;
+    color: white;
 `
 
 const Input = styled.TextInput`
@@ -14,8 +15,9 @@ const Input = styled.TextInput`
     border-color: #DADADA;
     width: 306px;
     height: 60px;
-    margin-bottom: 32px;
+    margin-bottom: 16px;
     padding: 16px;
+    background-color: white;
 `
 
 export default class TextInput extends Component {

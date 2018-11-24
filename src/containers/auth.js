@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Vibration, Alert } from 'react-native'
 
 import { getData } from '../actions/data'
+
+import { BaseContainer } from '../components/baseContainer'
+import Greeting from '../components/greeting'
+import Card from '../components/card'
+import { H1 } from '../components/typography'
 
 export default class Auth extends Component {
     constructor(props) {
@@ -13,61 +18,26 @@ export default class Auth extends Component {
     
         let username = navigation.getParam('username');
         let password = navigation.getParam('password');
-    
-        await getData(username, password);
+
+        console.log(username, password)
+        
+        try {
+            await getData(username, password);
+        } catch(e) {
+            Vibration.vibrate();
+            Alert.alert('Login failed', error, [{text: 'Try again', onPress: () => this.props.navigation.navigate('Login') }])
+        }
 
         this.props.navigation.navigate("Balance")
       }
 
     render(){
         return(
-            <View style={styles.loadingView}>
-                <View style={styles.card}></View>
-                <Text style={styles.h2}>👋 G'day</Text>
-                <Text style={styles.h1}>Logging you in...</Text>
-            </View>
+            <BaseContainer>
+                <Card />
+                <Greeting />
+                <H1>Logging you in...</H1>
+            </BaseContainer>
         )
     }
 }
-
-const styles = StyleSheet.create({
-    card: {
-      backgroundColor: '#C4C4C4',
-      width: 304,
-      height: 182,
-      marginBottom: 10,
-      borderRadius: 18
-    },
-    container: {
-      flex: 1,
-      flexDirection: 'column',
-      alignItems: 'center',
-      paddingTop: 80
-    },
-    loadingView: {
-      flex: 1,
-      flexDirection: 'column',
-      alignItems: 'center',
-      paddingTop: 180
-    },
-    navButtons: {
-      alignSelf: 'stretch',
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems:'center',
-      padding: 30,
-      marginBottom: 30
-    },
-    h1: {
-      fontSize: 64,
-      fontWeight: '900',
-      width: 306,
-      marginBottom: 8,
-      paddingTop: 18
-    },
-    h2: {
-      fontSize: 32,
-      fontWeight: '500',
-      width: 306,
-    }
-  });

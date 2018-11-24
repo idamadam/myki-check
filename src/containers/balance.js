@@ -8,6 +8,7 @@ import Card from '../components/card'
 import Greeting from '../components/greeting'
 import Balance from '../components/balance'
 import Footer from '../components/footer'
+import { BaseContainer } from '../components/baseContainer'
 
 class CardBalance extends Component {
 
@@ -64,7 +65,7 @@ class CardBalance extends Component {
 
   render(){
     return(
-      <View style={styles.container}>
+      <BaseContainer>
         <View style={styles.navButtons}>
           <Button title="Refresh" onPress={this._refresh} color="#FFFFFF"/>
           <Button title="Log Out" onPress={this._logout} color="#C10000"/>
@@ -73,7 +74,7 @@ class CardBalance extends Component {
         <Greeting />
         <Balance data={this.state.money} caption="myki Money" />
         <Footer lastUpdated={this.state.lastUpdated}/>
-      </View>
+      </BaseContainer>
     );
   }
 }

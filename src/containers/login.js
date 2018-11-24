@@ -1,8 +1,20 @@
-import React, { Component } from 'react';
-import { Text, View, TextInput, StyleSheet, Button, Alert  } from 'react-native';
-import { SecureStore } from 'expo';
+import React, { Component } from 'react'
+import { Alert } from 'react-native'
+import styled from 'styled-components'
 
 import Input from '../components/textinput'
+import Button from '../components/bigbutton'
+import { H1, H2 } from '../components/typography'
+import { BaseContainer } from '../components/baseContainer'
+
+const Text = styled.Text`
+    width: 306px;
+    color: white;
+`
+
+const Form = styled.View`
+    padding-top: 16px;
+`
 
 export default class LoginForm extends Component {
     constructor(props) {
@@ -20,6 +32,7 @@ export default class LoginForm extends Component {
     }
 
     _updatePassword = (text) => {
+        console.log(text)
         this.setState({
             password: text
         })
@@ -45,51 +58,33 @@ export default class LoginForm extends Component {
 
     render() {
         return(
-            <View style={styles.container}>
-                <Text style={styles.h1}>Login</Text>
-                <Input
-                    label="Username"
-                    onChangeText={this._updateEmail}
-                    placeholder={this.state.email}
-                    autoCapitalize='none'
-                    autoCorrect={false}
+            <BaseContainer>
+                <H1>Login</H1>
+                <Text>You’ll need a myki account with a registered myki card.</Text>
+                <Form>
+                    <Input
+                        label="myki Username"
+                        onChangeText={this._updateEmail}
+                        placeholder={this.state.email}
+                        autoCapitalize='none'
+                        autoCorrect={false}
 
-                />
-                <Input
-                    label="Password"
-                    onChangeText={this._updatePassword}
-                    placeholder={this.state.password}
-                    secureTextEntry
-                    autoCapitalize='none'
-                    autoCorrect={false}
-                />
-                <Button
-                    style={styles.login}
-                    onPress= {this._onPress}
-                    title="Login" 
-                />
-            </View>
+                    />
+                    <Input
+                        label="Password"
+                        onChangeText={this._updatePassword}
+                        placeholder={this.state.password}
+                        secureTextEntry
+                        autoCapitalize='none'
+                        autoCorrect={false}
+                    />
+                    <Button
+                        onPress= {this._onPress}
+                        title="Login" 
+                    />
+                </Form>
+            </BaseContainer>
         );
     }
 
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: 'column',
-        alignItems: 'center',
-        paddingTop: 80
-    },
-    login: {
-        backgroundColor: '#007AFF',
-        width: 306,
-        color: '#FFFFFF'
-    },
-    h1: {
-        fontSize: 64,
-        fontWeight: '900',
-        width: 306,
-        marginBottom: 32
-    }
-});

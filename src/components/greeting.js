@@ -1,14 +1,7 @@
 import React, { Component } from 'react';
-import styled from 'styled-components/native';
 import moment from 'moment';
 
-const H2 = styled.Text`
-    font-size: 32;
-    font-weight: 500;
-    width: 306;
-    color: white;
-    padding-top: 16px;
-`
+import { H2 } from './typography'
 
 export default class Greeting extends Component {
     constructor(props) {
