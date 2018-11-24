@@ -1,5 +1,6 @@
 import { Vibration, Alert } from 'react-native'
 import { AsyncStorage } from 'react-native'
+import moment from 'moment'
 
 import { storeLogin } from './auth'
 import apiData from '../api/getData'
@@ -7,7 +8,7 @@ import apiData from '../api/getData'
 export async function getData (username, password) {
     try {
       let data = await apiData(username, password);
-      data.lastUpdated = Date.now()
+      data.lastUpdated = moment().format()
       await storeData(data);  
       await storeLogin(username, password);
       return

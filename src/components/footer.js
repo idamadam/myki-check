@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text } from 'react-native'
+import { StyleSheet, Text, View  } from 'react-native';
+import Moment from 'react-moment';
 
 export default class Balance extends Component {
     constructor(props){
@@ -8,7 +9,9 @@ export default class Balance extends Component {
 
     render(){
         return(
-            <Text style={styles.footer}>Updated 2 hours ago</Text>
+            <View>
+                <Moment fromNow element={Text} style={styles.footer}>{this.props.lastUpdated}</Moment>
+            </View>
         );
     }
 }
