@@ -58,7 +58,7 @@ class CardBalance extends Component {
   _logout = async () => {
     await SecureStore.deleteItemAsync('MYKI_USERNAME');
     await SecureStore.deleteItemAsync('MYKI_PASSWORD');
-    await AsyncStorage.removeItem('MYKI_BALANCE');
+    await AsyncStorage.removeItem('MYKI_DATA');
     this.props.navigation.navigate('Login');
   }
 
