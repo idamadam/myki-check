@@ -47,7 +47,6 @@ class CardBalance extends Component {
 
     await getData(username, password);
     data = await readData(this.props.navigation);
-    console.log(data)
 
     this.setState({
       accountHolder: data.accountHolder,
