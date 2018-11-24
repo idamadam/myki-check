@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, AsyncStorage } from 'react-native';
+import { StyleSheet, View, Button, AsyncStorage } from 'react-native';
 import { SecureStore } from 'expo';
 
 import { getData, readData } from '../actions/data'
