@@ -17,6 +17,7 @@ class CardBalance extends Component {
 
     this.state = {
       accountHolder: null,
+      cardNumber: null,
       money: "Loading..",
       lastUpdated: null
     }
@@ -28,6 +29,7 @@ class CardBalance extends Component {
 
     this.setState({
       accountHolder: data.accountHolder,
+      cardNumber: data.cardNumber,
       money: data.money,
       lastUpdated: data.lastUpdated
     })
@@ -51,6 +53,7 @@ class CardBalance extends Component {
 
     this.setState({
       accountHolder: data.accountHolder,
+      cardNumber: data.cardNumber,
       money: data.money,
       lastUpdated: data.lastUpdated
     });
@@ -70,7 +73,7 @@ class CardBalance extends Component {
           <Button title="Refresh" onPress={this._refresh} color="#FFFFFF"/>
           <Button title="Log Out" onPress={this._logout} color="#C10000"/>
         </View>
-        <Card accountHolder={this.state.accountHolder} cardNumber="1234567890"/>
+        <Card accountHolder={this.state.accountHolder} cardNumber={this.state.cardNumber}/>
         <Greeting />
         <Balance data={this.state.money} caption="myki Money" />
         <Footer lastUpdated={this.state.lastUpdated}/>
