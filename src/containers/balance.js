@@ -6,7 +6,7 @@ import { getData, readData } from '../actions/data'
 
 import Card from '../components/card'
 import Greeting from '../components/greeting'
-import Balance from '../components/balance'
+import CombinedBalance from '../components/combinedBalance'
 import Footer from '../components/footer'
 import { BaseContainer } from '../components/baseContainer'
 
@@ -75,7 +75,7 @@ class CardBalance extends Component {
         </View>
         <Card accountHolder={this.state.accountHolder} cardNumber={this.state.cardNumber}/>
         <Greeting />
-        <Balance data={this.state.money} caption="myki Money" />
+        <CombinedBalance money={this.state.money} pass={this.state.pass}/>
         <Footer lastUpdated={this.state.lastUpdated}/>
       </BaseContainer>
     );
