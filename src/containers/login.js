@@ -32,7 +32,6 @@ export default class LoginForm extends Component {
     }
 
     _updatePassword = (text) => {
-        console.log(text)
         this.setState({
             password: text
         })

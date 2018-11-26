@@ -18,8 +18,6 @@ export default class Auth extends Component {
     
         let username = navigation.getParam('username');
         let password = navigation.getParam('password');
-
-        console.log(username, password)
         
         try {
             await getData(username, password);
