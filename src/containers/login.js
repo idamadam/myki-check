@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import Input from '../components/textinput'
 import Button from '../components/bigbutton'
-import { H1, H2 } from '../components/typography'
+import { H1 } from '../components/typography'
 import { BaseContainer } from '../components/baseContainer'
 
 const Text = styled.Text`
