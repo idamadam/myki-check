@@ -19,7 +19,8 @@ class CardBalance extends Component {
       accountHolder: null,
       cardNumber: null,
       money: "Loading..",
-      lastUpdated: null
+      lastUpdated: null,
+      pass: null
     }
   }
 
@@ -31,6 +32,7 @@ class CardBalance extends Component {
       accountHolder: data.accountHolder,
       cardNumber: data.cardNumber,
       money: data.money,
+      pass: data.pass,
       lastUpdated: data.lastUpdated
     })
 
@@ -55,6 +57,7 @@ class CardBalance extends Component {
       accountHolder: data.accountHolder,
       cardNumber: data.cardNumber,
       money: data.money,
+      pass: data.pass,
       lastUpdated: data.lastUpdated
     });
   }
