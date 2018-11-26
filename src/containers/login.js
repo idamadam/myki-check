@@ -1,6 +1,20 @@
-import React, { Component } from 'react';
-import { Text, View, TextInput, StyleSheet, Button, Alert  } from 'react-native';
-import { SecureStore } from 'expo';
+import React, { Component } from 'react'
+import { Alert } from 'react-native'
+import styled from 'styled-components'
+
+import Input from '../components/textinput'
+import Button from '../components/bigbutton'
+import { H1, H2 } from '../components/typography'
+import { BaseContainer } from '../components/baseContainer'
+
+const Text = styled.Text`
+    width: 306px;
+    color: white;
+`
+
+const Form = styled.View`
+    padding-top: 16px;
+`
 
 export default class LoginForm extends Component {
     constructor(props) {
@@ -8,15 +22,6 @@ export default class LoginForm extends Component {
         this.state = {
             email: '',
             password: ''
-        }
-    }
-
-    async componentDidMount() {
-        let username = await SecureStore.getItemAsync('MYKI_USERNAME');
-        let password = await SecureStore.getItemAsync('MYKI_PASSWORD');
-
-        if (username != null && password != null) {
-            this._login(username, password)
         }
     }
 
@@ -52,67 +57,33 @@ export default class LoginForm extends Component {
 
     render() {
         return(
-            <View style={styles.container}>
-                <Text style={styles.h1}>Login</Text>
-                <Text style={styles.label}>Username</Text>
-                <TextInput 
-                    style={styles.textbox}
-                    onChangeText={this._updateEmail}
-                    placeholder={this.state.email}
-                    autoCapitalize='none'
-                    autoCorrect={false}
+            <BaseContainer>
+                <H1>Login</H1>
+                <Text>You’ll need a myki account with a registered myki card.</Text>
+                <Form>
+                    <Input
+                        label="myki Username"
+                        onChangeText={this._updateEmail}
+                        placeholder={this.state.email}
+                        autoCapitalize='none'
+                        autoCorrect={false}
 
-                />
-                <Text style={styles.label}>Password</Text>
-                <TextInput 
-                    style={styles.textbox} 
-                    onChangeText={this._updatePassword}
-                    placeholder={this.state.password}
-                    secureTextEntry
-                    autoCapitalize='none'
-                    autoCorrect={false}
-                />
-                <Button
-                    style={styles.login}
-                    onPress= {this._onPress}
-                    title="Login" 
-                />
-            </View>
+                    />
+                    <Input
+                        label="Password"
+                        onChangeText={this._updatePassword}
+                        placeholder={this.state.password}
+                        secureTextEntry
+                        autoCapitalize='none'
+                        autoCorrect={false}
+                    />
+                    <Button
+                        onPress= {this._onPress}
+                        title="Login" 
+                    />
+                </Form>
+            </BaseContainer>
         );
     }
 
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: 'column',
-        alignItems: 'center',
-        paddingTop: 80
-    },
-    textbox: {
-        borderWidth: 0.5,
-        borderRadius: 6,
-        borderColor: '#DADADA',
-        width: 306,
-        height: 60,
-        marginBottom: 32,
-        padding: 16,
-    },
-    label: {
-        fontSize: 22,
-        width: 306,
-        marginBottom: 4
-    },
-    login: {
-        backgroundColor: '#007AFF',
-        width: 306,
-        color: '#FFFFFF'
-    },
-    h1: {
-        fontSize: 64,
-        fontWeight: '900',
-        width: 306,
-        marginBottom: 32
-    }
-});

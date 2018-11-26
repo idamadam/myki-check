@@ -12,7 +12,7 @@ function postData (url = ``, data = {}) {
     .catch((error) => console.error(error))
 }
 
-export default async function getBalance (username, password) {
+export default async function getData (username, password) {
     let auth = {
         username: username,
         password: password
@@ -23,6 +23,6 @@ export default async function getBalance (username, password) {
     if (response.error) {
         throw new Error (response.error)
     } else {
-        return response.balance
+        return response
     }
 }

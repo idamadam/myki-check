@@ -7,7 +7,7 @@ export default class Splash extends Component {
     }
 
     async componentDidMount() {
-        let storedBalance = await AsyncStorage.getItem('MYKI_BALANCE');
+        let storedBalance = await AsyncStorage.getItem('MYKI_DATA');
         if (storedBalance !== null) {
             this.props.navigation.navigate('Balance', {
                 refresh: true
