@@ -2,7 +2,7 @@
   "expo": {
     "name": "myki Check",
     "icon": "./assets/ios-icon.png",
-    "version": "0.2.1",
+    "version": "0.3.0",
     "slug": "myki-check",
     "sdkVersion": "31.0.0",
     "ios": {
