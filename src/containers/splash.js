@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, AsyncStorage } from 'react-native';
+import { AsyncStorage, View } from 'react-native';
 
 export default class Splash extends Component {
     constructor(props) {
@@ -18,6 +18,8 @@ export default class Splash extends Component {
     }
 
     render() {
-        return <View></View>
+        return (
+            <View></View>
+        )
     }
 }
