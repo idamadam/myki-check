@@ -21,14 +21,16 @@ const Metadata = styled.View`
     padding-left: 18px;
 `
 const Accountholder = styled.Text`
-    font-size: 18px;
+    font-size: 16px;
     color: #FFFCF6;
-    font-weight: 500;
+    font-weight: 600;
+    text-transform: uppercase;
 `
 const CardNumber = styled.Text`
     color: #FFFCF6;
     opacity: 0.6;
     font-size: 13px;
+    font-weight: 600;
 `
 
 export default class Card extends Component {
