@@ -1,6 +1,5 @@
-import { SecureStore } from 'expo';
+import * as Keychain from 'react-native-keychain'
 
 export async function storeLogin(username, password) {
-    await SecureStore.setItemAsync('MYKI_USERNAME', username);
-    await SecureStore.setItemAsync('MYKI_PASSWORD', password);
+    await Keychain.setGenericPassword(username, password)
 }
