@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Button, AsyncStorage } from 'react-native';
-import { SecureStore } from 'expo';
+import * as Keychain from 'react-native-keychain'
 
 import { getData, readData } from '../actions/data'
 
@@ -47,10 +47,9 @@ class CardBalance extends Component {
       lastUpdated: null
     })
 
-    let username = await SecureStore.getItemAsync('MYKI_USERNAME');
-    let password = await SecureStore.getItemAsync('MYKI_PASSWORD');
+    let credentials = await Keychain.getGenericPassword();
 
-    await getData(username, password);
+    await getData(credentials.username, credentials.password);
     data = await readData(this.props.navigation);
 
     this.setState({
@@ -63,8 +62,7 @@ class CardBalance extends Component {
   }
 
   _logout = async () => {
-    await SecureStore.deleteItemAsync('MYKI_USERNAME');
-    await SecureStore.deleteItemAsync('MYKI_PASSWORD');
+    await Keychain.resetGenericPassword()
     await AsyncStorage.removeItem('MYKI_DATA');
     this.props.navigation.navigate('Login');
   }
