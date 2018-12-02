@@ -68,12 +68,18 @@ export default class Auth extends Component {
 
         try {
             await getData(username, password);
+            this.props.navigation.navigate("Balance")
         } catch(e) {
             Vibration.vibrate();
-            Alert.alert('Login failed', error, [{text: 'Try again', onPress: () => this.props.navigation.navigate('Login') }])
+            Alert.alert(
+                'Login failed', 
+                'Invalid username/password', 
+                [
+                    {text: 'Try again', onPress: () => this.props.navigation.navigate('Login') }
+                ],
+                { cancelable: false }
+            )
         }
-
-        this.props.navigation.navigate("Balance")
       }
 
     render(){
