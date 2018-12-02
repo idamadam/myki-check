@@ -74,7 +74,7 @@ class CardBalance extends Component {
       <BaseContainer>
         <View style={styles.navButtons}>
           <Button title="Refresh" onPress={this._refresh} color="#FFFFFF"/>
-          <Button title="Log Out" onPress={this._logout} color="#C10000"/>
+          <Button title="Log Out" onPress={this._logout} color="#FFD601"/>
         </View>
         <Card accountHolder={this.state.accountHolder} cardNumber={this.state.cardNumber}/>
         <Greeting />
