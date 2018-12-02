@@ -6,6 +6,10 @@ import apiData from '../api/getData'
 
 export async function getData (username, password) {
   let data = await apiData(username, password);
+  
+  let formattedNumber = data.cardNumber.replace(/(\d{4})/g, '$1 ').replace(/(^\s+|\s+$)/,'')
+  data.cardNumber = formattedNumber
+
   data.lastUpdated = moment().format()
   await storeData(data);  
   await storeLogin(username, password);
